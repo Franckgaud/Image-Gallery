@@ -1,12 +1,13 @@
 <template>
     <section>
         <h1>Image Gallery</h1>
+        <ImageModal></ImageModal>
+
         <div class="image-list--container">
-            <div class="image-list" v-for="image in images " :key=image.id v-on:click="clickHandler">
+            <div class="image-list" v-for="image in images " :key=image.id v-on:click="clickHandler(image)">
                 <img :src="image.url_n" :alt="image.alt" />
             </div>
         </div>
-        <ImageModal></ImageModal>
     </section>
 </template>
 <script setup>
@@ -20,8 +21,9 @@
     const images = computed(() => {
       return store.state.images
     })
-    const clickHandler = () =>{
-        console.log("poop")
+    const clickHandler = (e) =>{
+        store.dispatch("setNewClickedImage", e);
+
     }
     onMounted(() => {
     // dispatch the fetchImages action which commits a mutation to update the state

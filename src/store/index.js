@@ -5,12 +5,15 @@ export default createStore({
   state: {
     contactTitle : "This is the Contact Page of the create store page",
     images: [],
-    selectedImage:""
+    clickedImage:"nothing"
   },
   mutations: {
     SET_IMAGES(state, images) {
       state.images = images
-  }
+  },
+  SET_CLICKED_IMAGE(state, clickedImage) {
+    state.clickedImage = clickedImage
+}
   },
   
   actions: {
@@ -30,13 +33,18 @@ export default createStore({
             per_page: 30,
           }
         })
+        console.log(data.data.photos.photo)
         commit("SET_IMAGES", data.data.photos.photo)
       }
       catch (error) {
         alert(error)
       }
     },
+    setNewClickedImage ({commit}, clickedImage){
+      commit("SET_CLICKED_IMAGE", clickedImage)
+    }
   },
+  
   modules: {
   }
 })
