@@ -30,7 +30,6 @@ export default createStore({
             per_page: 30,
           }
         })
-        console.log(data.data.photos.photo)
         commit("SET_IMAGES", data.data.photos.photo)
       }
       catch (error) {
