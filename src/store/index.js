@@ -5,15 +5,19 @@ export default createStore({
   state: {
     contactTitle : "This is the Contact Page of the create store page",
     images: [],
-    clickedImage:"nothing"
+    clickedImage:"nothing",
+    modalActive: true,
   },
   mutations: {
     SET_IMAGES(state, images) {
       state.images = images
-  },
-  SET_CLICKED_IMAGE(state, clickedImage) {
+    },
+    SET_CLICKED_IMAGE(state, clickedImage) {
     state.clickedImage = clickedImage
-}
+    },
+    SET_MODAL_ACTIVE(state) {
+      state.modalActive = !state.modalActive
+    }
   },
   
   actions: {
@@ -42,9 +46,9 @@ export default createStore({
     },
     setNewClickedImage ({commit}, clickedImage){
       commit("SET_CLICKED_IMAGE", clickedImage)
+    },
+    setModalActive ({commit}){
+      commit("SET_MODAL_ACTIVE")
     }
   },
-  
-  modules: {
-  }
 })

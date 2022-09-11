@@ -4,7 +4,7 @@
         <ImageModal></ImageModal>
 
         <div class="image-list--container">
-            <div class="image-list" v-for="image in images " :key=image.id v-on:click="clickHandler(image)">
+            <div class="image-list" v-for="image in images " :key=image.id v-on:click="openModalSetData(image)">
                 <img :src="image.url_n" :alt="image.alt" />
             </div>
         </div>
@@ -21,9 +21,9 @@
     const images = computed(() => {
       return store.state.images
     })
-    const clickHandler = (e) =>{
+    const openModalSetData = (e) =>{
         store.dispatch("setNewClickedImage", e);
-
+        store.dispatch("setModalActive");
     }
     onMounted(() => {
     // dispatch the fetchImages action which commits a mutation to update the state
