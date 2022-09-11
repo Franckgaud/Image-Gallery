@@ -3,11 +3,11 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    contactTitle : "This is the Contact Page of the create store page",
     images: [],
     clickedImage:"nothing",
-    modalActive: true,
+    modalActive: false,
   },
+  //Those mutations will handle the change of the 3 states accross the app
   mutations: {
     SET_IMAGES(state, images) {
       state.images = images
@@ -21,7 +21,7 @@ export default createStore({
   },
   
   actions: {
-    //This will get all the images of the gallery on page load.
+    //Get all the images of the gallery.
     async fetchImages({ commit }) {
       try {
           const data = await axios({
@@ -29,7 +29,7 @@ export default createStore({
           url: 'https://api.flickr.com/services/rest',
           params: {
             method: 'flickr.photos.getRecent',
-            api_key: "d9373efda2b6ccaefe547db9e483da8c",
+            api_key: process.env.VUE_APP_API_KEY,
             extras: 'url_n, owner_name, date_taken, views',
             page: 1,
             format: 'json',
@@ -37,16 +37,17 @@ export default createStore({
             per_page: 30,
           }
         })
-        console.log(data.data.photos.photo)
         commit("SET_IMAGES", data.data.photos.photo)
       }
       catch (error) {
         alert(error)
       }
     },
+    //handles the mutation of the image currently clicked
     setNewClickedImage ({commit}, clickedImage){
       commit("SET_CLICKED_IMAGE", clickedImage)
     },
+    //handles the opening adn closing of the modal
     setModalActive ({commit}){
       commit("SET_MODAL_ACTIVE")
     }
